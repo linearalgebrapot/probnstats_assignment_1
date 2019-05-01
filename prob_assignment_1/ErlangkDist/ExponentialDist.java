@@ -28,18 +28,21 @@ public class ExponentialDist {
 		
 		for (int i = 0; i < trials; ++i) {
 			
-			int successIdx = -1, tmpIdx = 0; //for no success case.
+			int successIdx = -1, successNextIdx = 0; //for no success case.
 			for (int j = 0; j < howManyIntervals; ++j) {
 				
 				int rnd = new Random().nextInt(intervalsGetP);
 				if (rnd < lambda * intervalsGetP) {
 					successIdx = j;
-					if (tmpIdx != 0) ++waitingTimeArr[successIdx - tmpIdx];
-					tmpIdx = successIdx;
+					if (successNextIdx != 0) {
+						//++waitingTimeArr[successIdx - successNextIdx];
+						successNextIdx = successIdx;
+						break;
+					}
 				}
 			}
 //			if (successIdx == -1) //한번도 성공 못해서 대기 시간이 뭐 없음 그냥 확률이 0
-//			if (tmpIdx == 0) //한번만 성공해서 대기 시간이 그냥 ... 이것도 없네?
+//			if (successNextIdx == 0) //한번만 성공해서 대기 시간이 그냥 ... 이것도 없네?
 		}
 		
 		probArr = new double[waitingTimeArr.length]; //idx 0 ~ 59
