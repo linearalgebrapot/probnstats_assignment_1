@@ -10,8 +10,6 @@ public class Dist {
 		
 		for(int i=0;i<pointSet.length;i++)
 			pointSet[i] = new Point();
-		
-		//simulateDist2();
 	}
 	
 	public double getMean() {

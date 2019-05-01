@@ -2,17 +2,18 @@ import java.util.Random;
 
 public class PseudoExponentialDist extends Dist{
 	public static final int REAPEAT = 10000;
-	public int ramda;
+	public int lambda;
 	public double prob;
 	public int[] recordEachInterval;
 	
-	public PseudoExponentialDist(int domain, int ramda) { //도메인 1000, 람다 4
+	public PseudoExponentialDist(int domain, int lambda) {
 		super(domain);
-		this.ramda = ramda;
-		this.prob = ramda/domain;
+		this.lambda = lambda;
+		this.prob = lambda / domain;
 		recordEachInterval = new int[domain];
 		
-		for(int i=0;i<this.recordEachInterval.length;i++) {
+		//initialize recordEachInterval array with 0
+		for(int i = 0; i < recordEachInterval.length; i++) {
 			this.recordEachInterval[i] = 0;
 		}
 	}
@@ -24,6 +25,7 @@ public class PseudoExponentialDist extends Dist{
 		int secondSuccess;
 		
 		for(i=0;i<REAPEAT;i++) {
+			
 			Random rnd = new Random();
 			firstSuccess = 0;
 			secondSuccess = 0;
@@ -31,19 +33,19 @@ public class PseudoExponentialDist extends Dist{
 			for(j=0;j<domain;j++) {
 				int isThisSuccess = rnd.nextInt(domain);
 				//System.out.println(j + "th : " + isThisSuccess);
-				if(isThisSuccess < ramda && firstSuccess == 0) { //관측이 성공 && 아직 성공 X
+				if(isThisSuccess < lambda && firstSuccess == 0) { //관측이 성공 && 아직 성공 X
 					firstSuccess = j;
 					//tmp
 				}
 				
-				else if(isThisSuccess < ramda && firstSuccess != 0) { //관측이 성공 && 이미 한 번 성공
+				else if(isThisSuccess < lambda && firstSuccess != 0) { //관측이 성공 && 이미 한 번 성공
 					if(firstSuccess == 0)
 						System.out.println("??? : " + secondSuccess + "  " + firstSuccess);
 					secondSuccess = j;
 					break;
 				}
 			}
-			System.out.println("두 번째 성공이 관측된 직후 : " + secondSuccess + "  " + firstSuccess);
+			System.out.println(secondSuccess + "  " + firstSuccess); //두 번째 성공이 관측된 직후
 			if(secondSuccess - firstSuccess < 0) {
 				System.out.println("At " + i + "th repeat, " +  j + "th try, Something went wrong");
 				System.out.println(secondSuccess + " - " + firstSuccess + " = " + (secondSuccess - firstSuccess));
