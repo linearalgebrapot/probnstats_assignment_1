@@ -21,31 +21,32 @@ public class PseudoExponentialDist extends Dist{
 	
 	public void simulatePseudoExponentialDist() {
 		 
-		int i=0, j=0;
+		int i = 0, j = 0;
 		int firstSuccess;
 		int secondSuccess;
 		
 		for(i=0;i<REAPEAT;i++) {
 			//if a random number between 0 and domain - 1 is smaller than lambda -> success!
 			Random rnd = new Random();
-			firstSuccess = 0;
+			firstSuccess = -1;
 			secondSuccess = 0;
 			
 			for(j=0;j<domain;j++) {
 				
 				int isThisSuccess = rnd.nextInt(domain);
 				
-				if(isThisSuccess < lambda && firstSuccess == 0) {
+				if(isThisSuccess < lambda && firstSuccess == -1) {
 					firstSuccess = j;
 				}	
-				else if (isThisSuccess < lambda && firstSuccess != 0) {
+				else if (isThisSuccess < lambda && firstSuccess != -1) {
 					secondSuccess = j;
 					System.out.println(firstSuccess + "  " + secondSuccess);
 					++recordEachInterval[secondSuccess - firstSuccess];
 					break;
 				}
-			}			
+			}	
 		}
+		
 		double m=0;
 		double p=0;
 		for(i = 0; i < pointSet.length; ++i) {
