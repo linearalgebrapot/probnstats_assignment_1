@@ -1,4 +1,5 @@
-package prob_assignment_1;
+package PoissonDist;
+
 
 import java.util.Random;
 

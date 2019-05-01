@@ -1,5 +1,4 @@
-package prob_assignment_1;
-
+package PoissonDist;
 public class Prob {
 
 	public static void main(String[] args) {

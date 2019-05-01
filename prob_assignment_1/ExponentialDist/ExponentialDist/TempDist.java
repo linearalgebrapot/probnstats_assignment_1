@@ -1,3 +1,4 @@
+package ExponentialDist;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.util.Random;

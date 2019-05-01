@@ -1,3 +1,4 @@
+package ExponentialDist;
 
 public class Main {
 

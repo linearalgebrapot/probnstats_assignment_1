@@ -1,3 +1,4 @@
+package ExponentialDist;
 import java.util.Random;
 
 public class Dist {

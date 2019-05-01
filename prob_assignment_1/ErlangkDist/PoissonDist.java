@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import PoissonDist.PoissonDist;
+
 public class PoissonDist {
 
 	/**
