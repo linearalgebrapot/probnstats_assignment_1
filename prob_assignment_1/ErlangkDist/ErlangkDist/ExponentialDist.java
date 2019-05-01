@@ -1,3 +1,4 @@
+package ErlangkDist;
 import java.util.Random;
 
 public class ExponentialDist {
