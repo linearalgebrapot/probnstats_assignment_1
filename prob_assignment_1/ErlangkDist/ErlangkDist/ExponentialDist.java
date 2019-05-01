@@ -3,11 +3,12 @@ import java.util.Random;
 
 public class ExponentialDist {
 	
-	private double lambda;
+	private double probability;
 	private int trials;
 	private int howManyIntervals;
 	private int intervalsGetP;
 	
+	int[] waitingTimeArr;
 	private double[] probArr;
 		
 	/**
@@ -15,38 +16,39 @@ public class ExponentialDist {
 	 * @param _p
 	 * @param _trials
 	 */
-	public ExponentialDist(double _lamda, int _trials) {
-		lambda = _lamda;
+	public ExponentialDist(double _probability, int _trials) {
+		probability = _probability;
 		trials = _trials;
 		
-		howManyIntervals = 100;
+		howManyIntervals = 10000;
 		intervalsGetP = 1000;
+		
+		waitingTimeArr = new int[howManyIntervals];
 	}
 	
 	public double[] run() {
 		
-		int[] waitingTimeArr = new int[howManyIntervals]; //because... no use of idx 60.
+		int[] waitingTimeArr = new int[howManyIntervals];
 		
 		for (int i = 0; i < trials; ++i) {
 			
-			int successIdx = -1, successNextIdx = 0; //for no success case.
+			int successIdx = -1, successNextIdx = 0;
 			for (int j = 0; j < howManyIntervals; ++j) {
 				
 				int rnd = new Random().nextInt(intervalsGetP);
-				if (rnd < lambda * intervalsGetP) {
-					successIdx = j;
-					if (successNextIdx != 0) {
-						//++waitingTimeArr[successIdx - successNextIdx];
-						successNextIdx = successIdx;
+				if (rnd < probability * intervalsGetP) {
+					
+					if (successIdx == -1) successIdx = j;
+					else if (successIdx != -1) {
+						successNextIdx = j;
+						++waitingTimeArr[successNextIdx - successIdx];
 						break;
 					}
 				}
 			}
-//			if (successIdx == -1) //한번도 성공 못해서 대기 시간이 뭐 없음 그냥 확률이 0
-//			if (successNextIdx == 0) //한번만 성공해서 대기 시간이 그냥 ... 이것도 없네?
 		}
 		
-		probArr = new double[waitingTimeArr.length]; //idx 0 ~ 59
+		probArr = new double[waitingTimeArr.length];
 		
 		for (int i = 1; i < howManyIntervals; ++i)
 			probArr[i] = waitingTimeArr[i] / (double)trials;
@@ -62,15 +64,24 @@ public class ExponentialDist {
 		return m;
 	}
 	
+	public double meanOfSquare() {
+		
+		double ms = 0.0;
+		
+		for (int i = 1; i < probArr.length; ++i)
+			ms += i * i * probArr[i];
+		return ms;
+	}
+	
 	public double variance() {
 		
-		return mean() * mean();
+		return meanOfSquare() - mean() * mean();
 	}
 	
 	
 	public static void main(String[] args) {
 		
-		double lambda = 0.3;
+		double lambda = 0.03;
 		int trials = 1000000;
 		
 		ExponentialDist exponential = new ExponentialDist(lambda, trials);
