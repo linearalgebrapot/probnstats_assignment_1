@@ -1,5 +1,5 @@
-
 public class Point {
+
 	public double value, x, y;
 	
 	public Point() {
