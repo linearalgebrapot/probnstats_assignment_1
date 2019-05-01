@@ -49,9 +49,6 @@ public class Dist {
 	
 	public void showData() {
 		System.out.println("Show data : ");
-//		for(int i=0;i<pointSet.length;i++) 
-//			System.out.println("(" + pointSet[i].x + ", " + pointSet[i].y + ") : " + pointSet[i].value);
-		
 		System.out.println("Domain : 0 <= x <= " + (domain-1));
 		System.out.println("Mean : " + getMean());
 		System.out.println("Variance : " + getVariance());	
