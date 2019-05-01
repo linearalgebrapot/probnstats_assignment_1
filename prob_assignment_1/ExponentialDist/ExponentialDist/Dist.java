@@ -1,5 +1,5 @@
 package ExponentialDist;
-import java.util.Random;
+//import java.util.Random;
 
 public class Dist {
 	public Point[] pointSet;

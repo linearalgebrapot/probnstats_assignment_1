@@ -1,6 +1,6 @@
 package ExponentialDist;
-import java.io.BufferedWriter;
-import java.io.File;
+//import java.io.BufferedWriter;
+//import java.io.File;
 import java.util.Random;
 
 public class TempDist extends Dist{	
