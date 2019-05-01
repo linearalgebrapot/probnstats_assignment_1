@@ -10,6 +10,8 @@ public class ExponentialDist {
 	
 	int[] waitingTimeArr;
 	private double[] probArr;
+	
+	private int trialsOfSuccess = 0;
 		
 	/**
 	 * 
@@ -20,7 +22,7 @@ public class ExponentialDist {
 		probability = _probability;
 		trials = _trials;
 		
-		howManyIntervals = 10000;
+		howManyIntervals = 100;
 		intervalsGetP = 1000;
 		
 		waitingTimeArr = new int[howManyIntervals];
@@ -42,6 +44,7 @@ public class ExponentialDist {
 					else if (successIdx != -1) {
 						successNextIdx = j;
 						++waitingTimeArr[successNextIdx - successIdx];
+						++trialsOfSuccess;
 						break;
 					}
 				}
@@ -51,7 +54,7 @@ public class ExponentialDist {
 		probArr = new double[waitingTimeArr.length];
 		
 		for (int i = 1; i < howManyIntervals; ++i)
-			probArr[i] = waitingTimeArr[i] / (double)trials;
+			probArr[i] = waitingTimeArr[i] / (double)trialsOfSuccess;
 		return probArr;
 	}
 	
@@ -81,10 +84,10 @@ public class ExponentialDist {
 	
 	public static void main(String[] args) {
 		
-		double lambda = 0.03;
+		double probability = 0.05;
 		int trials = 1000000;
 		
-		ExponentialDist exponential = new ExponentialDist(lambda, trials);
+		ExponentialDist exponential = new ExponentialDist(probability, trials);
 		double[] res = exponential.run();
 		
 		for (int i = 1; i < res.length; ++i)
