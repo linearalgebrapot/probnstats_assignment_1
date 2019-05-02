@@ -84,7 +84,7 @@ public class ExponentialDist {
 	
 	public static void main(String[] args) {
 		
-		double probability = 0.05;
+		double probability = 0.5;
 		int trials = 1000000;
 		
 		ExponentialDist exponential = new ExponentialDist(probability, trials);
